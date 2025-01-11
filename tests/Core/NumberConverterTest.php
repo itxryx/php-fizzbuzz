@@ -16,5 +16,6 @@ class NumberConverterTest extends TestCase
         $this->assertEquals('Fizz', $fizzbuzz->convert(3));
         $this->assertEquals('4', $fizzbuzz->convert(4));
         $this->assertEquals('Buzz', $fizzbuzz->convert(5));
+        $this->assertEquals('FizzBuzz', $fizzbuzz->convert(15));
     }
 }
