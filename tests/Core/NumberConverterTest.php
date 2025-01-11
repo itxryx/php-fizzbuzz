@@ -9,19 +9,63 @@ use PHPUnit\Framework\TestCase;
 
 class NumberConverterTest extends TestCase
 {
-    public function testConvertWithUnmatchedFizzBuzzRulesAndConstantRule()
+    public function testConvertWithEmptyRules()
+    {
+        $fizzbuzz = new NumberConverter([]);
+        $this->assertEquals("", $fizzbuzz->convert(1));
+    }
+
+    public function testConvertWithSingleRule()
     {
         $fizzbuzz = new NumberConverter([
             $this->createMockRule(
                 expectedNumber: 1,
-                replacement: ""
+                expectedCarry: "",
+                matchResult: true,
+                replacement: "Replaced"
+            )
+        ]);
+        $this->assertEquals("Replaced", $fizzbuzz->convert(1));
+    }
+
+    public function testConvertCompositingRuleResults()
+    {
+        $fizzbuzz = new NumberConverter([
+            $this->createMockRule(
+                expectedNumber: 1,
+                expectedCarry: "",
+                matchResult: true,
+                replacement: "Fizz"
             ),
             $this->createMockRule(
                 expectedNumber: 1,
-                replacement: ""
+                expectedCarry: "Fizz",
+                matchResult: true,
+                replacement: "FizzBuzz"
+            )
+        ]);
+        $this->assertEquals("FizzBuzz", $fizzbuzz->convert(1));
+    }
+
+    public function testConvertSkippingUnmatchedRules()
+    {
+        $fizzbuzz = new NumberConverter([
+            $this->createMockRule(
+                expectedNumber: 1,
+                expectedCarry: "",
+                matchResult: false,
+                replacement: "Fizz"
             ),
             $this->createMockRule(
                 expectedNumber: 1,
+                expectedCarry: "",
+                matchResult: false,
+                replacement: "Buzz"
+            ),
+            $this->createMockRule(
+                expectedNumber: 1,
+                expectedCarry: "",
+                matchResult: true,
                 replacement: "1"
             )
         ]);
@@ -30,14 +74,20 @@ class NumberConverterTest extends TestCase
 
     private function createMockRule(
         int $expectedNumber,
+        string $expectedCarry,
+        bool $matchResult,
         string $replacement
     ): ReplaceRuleInterface
     {
         $rule = $this->createMock(ReplaceRuleInterface::class);
-        $rule->expects($this->atLeastOnce())
-            ->method('replace')
-            ->with($expectedNumber)
+        $rule->expects($this->any())
+            ->method('apply')
+            ->with($expectedCarry, $expectedNumber)
             ->willReturn($replacement);
+        $rule->expects($this->atLeastOnce())
+            ->method('match')
+            ->with($expectedCarry, $expectedNumber)
+            ->willReturn($matchResult);
         return $rule;
     }
 }
