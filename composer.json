@@ -2,7 +2,8 @@
     "name": "itxryx/php-fizzbuzz",
     "autoload": {
         "psr-4": {
-            "Itxryx\\FizzBuzz\\": "src/"
+            "Itxryx\\FizzBuzz\\": "src/",
+            "Itxryx\\FizzBuzz\\Tests\\": "tests/"
         }
     },
     "authors": [
