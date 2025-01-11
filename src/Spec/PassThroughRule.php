@@ -7,12 +7,17 @@ use Itxryx\FizzBuzz\Core\ReplaceRuleInterface;
 
 class PassThroughRule implements ReplaceRuleInterface
 {
+    public function __construct(
+        private array $exceptionalNumbers
+    ) { }
+
     public function replace(int $n): string
     {
-        if ($n % 3 === 0 || $n % 5 === 0) {
-            return "";
-        }else {
-            return (string)$n;
+        foreach ($this->exceptionalNumbers as $exceptionalNumber) {
+            if ($n % $exceptionalNumber === 0) {
+                return "";
+            }
         }
+        return (string)$n;
     }
 }

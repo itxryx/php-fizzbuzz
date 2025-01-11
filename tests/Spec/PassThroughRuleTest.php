@@ -10,7 +10,7 @@ class PassThroughRuleTest extends TestCase
 {
     public function testReplace()
     {
-        $rule = new PassThroughRule();
+        $rule = new PassThroughRule([3,5]);
         $this->assertEquals("1", $rule->replace(1));
     }
 }
