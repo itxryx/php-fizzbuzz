@@ -1,0 +1,17 @@
+{
+    "name": "itxryx/php-fizzbuzz",
+    "autoload": {
+        "psr-4": {
+            "Itxryx\\FizzBuzz\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ito ryo",
+            "email": "electrooculogram@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
+}
