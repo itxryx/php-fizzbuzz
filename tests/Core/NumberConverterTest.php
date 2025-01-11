@@ -26,4 +26,33 @@ class NumberConverterTest extends TestCase
         $fizzbuzz = new NumberConverter([$rule]);
         $this->assertEquals("Replaced", $fizzbuzz->convert(1));
     }
+
+    public function testConvertWithFizzBuzzRules()
+    {
+        $fizzbuzz = new NumberConverter([
+            $this->createMockRule(
+                expectedNumber: 1,
+                replacement: "Fizz"
+            ),
+            $this->createMockRule(
+                expectedNumber: 1,
+                replacement: "Buzz"
+            ),
+        ]);
+
+        $this->assertEquals("FizzBuzz", $fizzbuzz->convert(1));
+    }
+
+    private function createMockRule(
+        int $expectedNumber,
+        string $replacement
+    ): ReplaceRuleInterface
+    {
+        $rule = $this->createMock(ReplaceRuleInterface::class);
+        $rule->expects($this->atLeastOnce())
+            ->method('replace')
+            ->with($expectedNumber)
+            ->willReturn($replacement);
+        return $rule;
+    }
 }
