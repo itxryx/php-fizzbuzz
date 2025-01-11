@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace Itxryx\FizzBuzz\Core;
 
-class NumberConverter {
-    public function convert(int $n): string {
-        if ($n % 3 === 0 && $n % 5 === 0) {
-            return "FizzBuzz";
-        } else if ($n % 3 === 0) {
-            return "Fizz";
-        } else if ($n % 5 === 0) {
-            return "Buzz";
-        } else {
-            return (string)$n;
-        }
+class NumberConverter
+{
+    /**
+     * @param ReplaceRuleInterface[] $rules
+     */
+    public function __construct(
+        protected array $rules
+    ){ }
+
+    public function convert(int $n): string
+    {
+        return "";
     }
 }
