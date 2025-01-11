@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Itxryx\FizzBuzz\Tests\Core\Spec;
+namespace Itxryx\FizzBuzz\Tests\Spec;
 
+use Itxryx\FizzBuzz\Spec\CyclicNumberRule;
 use PHPUnit\Framework\TestCase;
 
 class CyclicNumberRuleTest extends TestCase
