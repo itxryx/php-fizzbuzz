@@ -43,6 +43,25 @@ class NumberConverterTest extends TestCase
         $this->assertEquals("FizzBuzz", $fizzbuzz->convert(1));
     }
 
+    public function testConvertWithUnmatchedFizzBuzzRulesAndConstantRule()
+    {
+        $fizzbuzz = new NumberConverter([
+            $this->createMockRule(
+                expectedNumber: 1,
+                replacement: ""
+            ),
+            $this->createMockRule(
+                expectedNumber: 1,
+                replacement: ""
+            ),
+            $this->createMockRule(
+                expectedNumber: 1,
+                replacement: "1"
+            )
+        ]);
+        $this->assertEquals("1", $fizzbuzz->convert(1));
+    }
+
     private function createMockRule(
         int $expectedNumber,
         string $replacement
